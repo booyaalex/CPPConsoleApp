@@ -115,7 +115,7 @@ class DrivingGame {
 
 					gameScreen.pop_back();
 
-					if (generateRandomNumber(1, 20) == 20) {
+					if (generateRandomNumber(1, 15) == 15) {
 						int random_change = generateRandomNumber(0, 1);
 						switch (mode) {
 							case STRAIGHT:
@@ -159,14 +159,14 @@ class DrivingGame {
 							break;
 					}
 					
-
+					system("cls");
 					for (int i = 0; i < gameScreen.size(); i++) {
 						row = gameScreen.at(i);
 						display_string = string(row, '.') + string(21, ' ') + string(20 - row, '.');
 						if (i == gameScreen.size() - 4) {
 							display_string.replace(xPos, 1, 1, '^');
 						}
-						cout << display_string << last_row_edge << "\n";
+						cout << display_string << "\n";
 					}
 				}
 		};
@@ -186,7 +186,7 @@ void playDrivingGame() {
 			car.moveRight();
 		}
 		display.displayGame(car);
-		Sleep(10);
+		Sleep(20);
 	}
 }
 
