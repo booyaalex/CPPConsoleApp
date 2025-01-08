@@ -352,7 +352,7 @@ int main() {
 			sortWords();
 		}
 		else {
-			cerr << "Invalid Input";
+			cerr << "Invalid Input \n";
 		}
 	}
 	cout << "\nThank you for Using the Console App!";
