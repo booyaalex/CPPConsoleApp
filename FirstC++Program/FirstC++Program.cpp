@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <conio.h>
 #include <deque>
+#include <algorithm>
 using namespace std;
 
 static int generateRandomNumber(int min, int max) {
@@ -52,7 +53,7 @@ void playNumberGuessingGame() {
 				else if (user_answer == correct_answer) {
 					cout << "Correct! The answer was " << correct_answer << "! \n";
 					cout << "It took you " << number_of_guesses << " tries to guess it! \n";
-					cout << "Type \"y\" to play again \n";
+					cout << "Type \"y\" to play again: \n";
 
 					cin >> user_input;
 					if (user_input == "y") {
@@ -232,7 +233,7 @@ void playDrivingGame() {
 		display.displayGame(car);
 
 		if (display.checkIfHit(car)) {
-			cout << "Game Over! Type \"y\" to Play Again! \n";
+			cout << "Game Over! Type \"y\" to Play Again: \n";
 
 			cin >> user_input;
 			if (user_input == "y") {
@@ -246,6 +247,82 @@ void playDrivingGame() {
 			}
 		}
 		Sleep(20);
+	}
+}
+
+void sortWords() {
+	string user_input;
+	vector<string> sorted_words;
+	bool program_finished = false;
+	bool word_inserted = false;
+
+	system("cls");
+	cout << "--- Sort Words Alphabetically ---\n";
+	
+	while (!program_finished) {
+		word_inserted = false;
+		cout << "Type in a Word: \n";
+
+		cin >> user_input;
+		user_input = toUpperCase(user_input);
+		if (user_input == "QUIT") {
+			program_finished = true;
+			system("cls");
+			break;
+		}
+		else {
+			if (sorted_words.size() < 1) {
+				sorted_words.push_back(user_input);
+				word_inserted = true;
+			}
+			else {
+				for (string word : sorted_words) {
+					bool word_is_after = false;
+					word = toUpperCase(word);
+
+					if (user_input == word) {
+						sorted_words.insert(find(sorted_words.begin(), sorted_words.end(), word), user_input);
+						word_inserted = true;
+						break;
+					}
+
+					for (int i = 0; i < user_input.size(); i++) {
+						
+						if ((int)user_input[i] < (int)word[i]) {
+							sorted_words.insert(find(sorted_words.begin(), sorted_words.end(), word), user_input);
+							word_inserted = true;
+							break;
+						}
+						else if ((int)user_input[i] == (int)word[i]) {
+							continue;
+						}
+						else if ((int)user_input[i] > (int)word[i]) {
+							word_is_after = true;
+							break;
+						}
+						
+					}
+
+					if (word_inserted) { break; }
+
+					if (word_is_after) { continue; }
+
+					if (user_input.size() < word.size()) {
+						sorted_words.insert(find(sorted_words.begin(), sorted_words.end(), word), user_input);
+						word_inserted = true;
+						break;
+					}
+				}
+				if (!word_inserted) {
+					sorted_words.push_back(user_input);
+				}
+			}
+			
+			cout << "\n";
+			for (string word : sorted_words) {
+				cout << word << "\n";
+			}
+		}
 	}
 }
 
@@ -272,7 +349,7 @@ int main() {
 			playDrivingGame();
 		}
 		else if (user_input == "3") {
-			playDrivingGame();
+			sortWords();
 		}
 		else {
 			cerr << "Invalid Input";
