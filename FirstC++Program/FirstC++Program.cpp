@@ -502,6 +502,7 @@ class HangmanGame {
 
 	void setupGame() {
 		wrong_guesses = 0;
+		game_won = false;
 
 		for (int i = 0; i < 6; i++) {
 			body_parts[i] = " ";
@@ -634,6 +635,21 @@ class HangmanGame {
 
 				if (game_won) {
 					cout << "Correct! The answer was " << correct_word << "! \n";
+					cout << "Type \"y\" to play again: \n";
+
+					cin >> user_input;
+					if (user_input == "y") {
+						playHangman();
+						break;
+					}
+					else {
+						game_finished = true;
+						system("cls");
+						break;
+					}
+				}
+				else if (wrong_guesses > 5) {
+					cout << "You Lose! The Correct Answer was " << correct_word << "! \n";
 					cout << "Type \"y\" to play again: \n";
 
 					cin >> user_input;
